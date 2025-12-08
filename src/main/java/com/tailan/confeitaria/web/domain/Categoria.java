@@ -16,9 +16,11 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria")
     private Set<Produto> produtos;
 
-    public Categoria(String nome, UUID id) {
+
+
+    public Categoria(String nome, Set<Produto> produtos) {
         this.nome = nome;
-        this.id = id;
+        this.produtos = produtos;
     }
 
     public Categoria() {
