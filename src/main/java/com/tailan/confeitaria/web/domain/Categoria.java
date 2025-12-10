@@ -9,8 +9,8 @@ import java.util.UUID;
 @Entity
 public class Categoria {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String nome;
 
     @OneToMany(mappedBy = "categoria")
@@ -18,7 +18,8 @@ public class Categoria {
 
 
 
-    public Categoria(String nome, Set<Produto> produtos) {
+    public Categoria(Integer id,String nome, Set<Produto> produtos) {
+        this.id = id;
         this.nome = nome;
         this.produtos = produtos;
     }
@@ -27,12 +28,20 @@ public class Categoria {
 
     }
 
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Set<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(Set<Produto> produtos) {
+        this.produtos = produtos;
     }
 
     public String getNome() {

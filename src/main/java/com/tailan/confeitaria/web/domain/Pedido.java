@@ -13,8 +13,8 @@ import java.util.UUID;
 @Entity
 public class Pedido {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private Instant  momentoPedido;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
@@ -34,7 +34,7 @@ public class Pedido {
 
     }
 
-    public Pedido(UUID id, Instant momentoPedido, Integer status) {
+    public Pedido(Integer id, Instant momentoPedido, Integer status) {
         this.id = id;
         this.momentoPedido = momentoPedido;
         this.status = status;
@@ -52,13 +52,34 @@ public class Pedido {
         this.momentoPedido = momentoPedido;
     }
 
-    public UUID getId() {
-        return id;
+    public Set<ItemPedido> getItens() {
+        return itens;
     }
 
-    public void setId(UUID id) {
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
+    }
+
+    public Pagamento getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
+    }
+
+    public Usuario getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Usuario cliente) {
+        this.cliente = cliente;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
     }
+
 
     public Status getStatus(){
         return Status.valueOf(status);

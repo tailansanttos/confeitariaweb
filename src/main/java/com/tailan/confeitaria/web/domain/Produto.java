@@ -9,8 +9,8 @@ import java.util.UUID;
 @Table(name = "tb_produtos")
 public class Produto {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String nome;
     private String descricao;
     private BigDecimal preco;
@@ -22,7 +22,7 @@ public class Produto {
     @JoinColumn(name = "categoria", nullable = false)
     private Categoria categoriaProduto;
 
-    public Produto(UUID id, String nome, String descricao, BigDecimal preco, String imgUrl, Boolean ativo, Categoria categoriaProduto) {
+    public Produto(Integer id, String nome, String descricao, BigDecimal preco, String imgUrl, Boolean ativo, Categoria categoriaProduto) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -43,11 +43,11 @@ public class Produto {
         this.categoriaProduto = categoriaProduto;
     }
 
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -10,7 +10,7 @@ import java.util.UUID;
 @Table(name = "tb_pagamentos")
 public class Pagamento {
     @Id
-    private UUID  id;
+    private Integer  id;
     private Integer statusPedido;
     private Instant instantePagamento;
     @OneToOne
@@ -22,18 +22,19 @@ public class Pagamento {
 
     }
 
-    public Pagamento(UUID id, Instant instantePagamento, Pedido pedido,  Integer statusPedido) {
+    public Pagamento(Integer id, Instant instantePagamento, Pedido pedido,  Integer statusPedido) {
         this.id = id;
         this.instantePagamento = instantePagamento;
         this.pedido = pedido;
         setStatusPedido(statusPedido);
     }
 
-    public UUID getId() {
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
