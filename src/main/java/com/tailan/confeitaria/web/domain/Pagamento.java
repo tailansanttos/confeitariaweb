@@ -4,15 +4,19 @@ import com.tailan.confeitaria.web.domain.enums.StatusPagamento;
 import jakarta.persistence.*;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_pagamentos")
 public class Pagamento {
     @Id
-    private UUID  id;
-    private Integer statusPedido;
+    private Long  id;
+
+    @Column(name = "status_pagamento")
+    private Integer statusPagamento;
+
+    @Column(name = "instante_pagamento")
     private Instant instantePagamento;
+
     @OneToOne
     @MapsId
     @JoinColumn(name = "pedido_id")
@@ -22,28 +26,29 @@ public class Pagamento {
 
     }
 
-    public Pagamento(UUID id, Instant instantePagamento, Pedido pedido,  Integer statusPedido) {
+    public Pagamento(Long id, Instant instantePagamento, Pedido pedido, Integer statusPagamento) {
         this.id = id;
         this.instantePagamento = instantePagamento;
         this.pedido = pedido;
-        setStatusPedido(statusPedido);
+        setStatusPagamento(statusPagamento);
     }
 
-    public UUID getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     public StatusPagamento getStatusPedido() {
-        return StatusPagamento.valueOf(statusPedido);
+        return StatusPagamento.valueOf(statusPagamento);
     }
 
-    public void setStatusPedido(Integer statusPedido) {
+    public void setStatusPagamento(Integer statusPedido) {
         if (statusPedido != null) {
-            this.statusPedido = statusPedido;
+            this.statusPagamento = statusPedido;
         }
     }
 

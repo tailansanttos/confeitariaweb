@@ -3,19 +3,19 @@ package com.tailan.confeitaria.web.domain;
 import com.tailan.confeitaria.web.domain.enums.Status;
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.UUID;
 
 @Table(name = "tb_pedidos")
 @Entity
 public class Pedido {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "momento_pedido")
     private Instant  momentoPedido;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
     private Usuario cliente;
@@ -23,7 +23,7 @@ public class Pedido {
     @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
     private Pagamento pagamento;
 
-    @OneToMany(mappedBy = "pedido_id")
+    @OneToMany(mappedBy = "id.pedido")
     private Set<ItemPedido> itens;
 
 
@@ -34,7 +34,7 @@ public class Pedido {
 
     }
 
-    public Pedido(UUID id, Instant momentoPedido, Integer status) {
+    public Pedido(Long id, Instant momentoPedido, Integer status) {
         this.id = id;
         this.momentoPedido = momentoPedido;
         this.status = status;
@@ -52,12 +52,36 @@ public class Pedido {
         this.momentoPedido = momentoPedido;
     }
 
-    public UUID getId() {
-        return id;
+    public Set<ItemPedido> getItens() {
+        return itens;
     }
 
-    public void setId(UUID id) {
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
+    }
+
+    public Pagamento getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
+    }
+
+    public Usuario getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Usuario cliente) {
+        this.cliente = cliente;
+    }
+
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Status getStatus(){

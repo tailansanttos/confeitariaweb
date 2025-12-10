@@ -3,7 +3,6 @@ package com.tailan.confeitaria.web.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name = "tb_item_pedidos")
 public class ItemPedido {
@@ -13,9 +12,8 @@ public class ItemPedido {
 
     private Integer quantidade;
     private Double preco;
-    public ItemPedido() {
 
-    }
+    public ItemPedido() {}
 
     public ItemPedido(Pedido pedido, Produto produto, Integer quantidade, Double preco) {
         id.setPedido(pedido);
@@ -24,12 +22,36 @@ public class ItemPedido {
         this.preco = preco;
     }
 
-    @JsonIgnore
-    private Pedido getPedido(){
-        return id.getPedido();
-    };
+    public ItemPedidoPk getId() {
+        return id;
+    }
 
-    private Produto getProduto(){
+    public void setId(ItemPedidoPk id) {
+        this.id = id;
+    }
+
+    @JsonIgnore
+    public Pedido getPedido() {
+        return id.getPedido();
+    }
+
+    public Produto getProduto() {
         return id.getProduto();
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
     }
 }
