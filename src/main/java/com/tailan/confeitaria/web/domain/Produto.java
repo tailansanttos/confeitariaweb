@@ -3,51 +3,45 @@ package com.tailan.confeitaria.web.domain;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "tb_produtos")
 public class Produto {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String descricao;
     private BigDecimal preco;
+
     @Column(name = "img_url")
     private String imgUrl;
     private Boolean  ativo;
 
     @ManyToOne
-    @JoinColumn(name = "categoria", nullable = false)
-    private Categoria categoriaProduto;
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
 
-    public Produto(Integer id, String nome, String descricao, BigDecimal preco, String imgUrl, Boolean ativo, Categoria categoriaProduto) {
+    public Produto(Long id, String nome, String descricao, BigDecimal preco, String imgUrl, Boolean ativo, Categoria categoriaProduto) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.imgUrl = imgUrl;
         this.ativo = ativo;
-        this.categoriaProduto = categoriaProduto;
+        this.categoria = categoriaProduto;
     }
     public  Produto(){
 
     }
-    public Produto(String nome, String descricao, BigDecimal preco, String imgUrl, Boolean ativo, Categoria categoriaProduto) {
-        this.nome = nome;
-        this.descricao = descricao;
-        this.preco = preco;
-        this.imgUrl = imgUrl;
-        this.ativo = ativo;
-        this.categoriaProduto = categoriaProduto;
-    }
 
-    public Integer getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -91,11 +85,11 @@ public class Produto {
         this.ativo = ativo;
     }
 
-    public Categoria getCategoriaProduto() {
-        return categoriaProduto;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setCategoriaProduto(Categoria categoriaProduto) {
-        this.categoriaProduto = categoriaProduto;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }

@@ -2,16 +2,14 @@ package com.tailan.confeitaria.web.domain;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_usuarios")
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     @Column(unique = true)
     private String email;
@@ -21,13 +19,14 @@ public class Usuario {
     @Column(unique = true)
     private String cpf;
 
-    @OneToMany
+    @OneToMany(mappedBy = "usuario")
     private List<Endereco> enderecos;
 
-    @OneToMany
+
+    @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos;
 
-    public Usuario(Integer id, String nome, String email, String telefone, String password, String cpf, List<Endereco> enderecos, List<Pedido> pedidos) {
+    public Usuario(Long id, String nome, String email, String telefone, String password, String cpf, List<Endereco> enderecos, List<Pedido> pedidos) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -41,11 +40,12 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Integer getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

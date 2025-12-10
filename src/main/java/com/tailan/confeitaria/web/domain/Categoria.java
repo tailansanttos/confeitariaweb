@@ -3,14 +3,13 @@ package com.tailan.confeitaria.web.domain;
 import jakarta.persistence.*;
 
 import java.util.Set;
-import java.util.UUID;
 
 @Table(name = "tb_categorias")
 @Entity
 public class Categoria {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
 
     @OneToMany(mappedBy = "categoria")
@@ -18,7 +17,7 @@ public class Categoria {
 
 
 
-    public Categoria(Integer id,String nome, Set<Produto> produtos) {
+    public Categoria(Long id, String nome, Set<Produto> produtos) {
         this.id = id;
         this.nome = nome;
         this.produtos = produtos;
@@ -28,11 +27,11 @@ public class Categoria {
 
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

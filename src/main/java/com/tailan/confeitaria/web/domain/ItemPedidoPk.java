@@ -1,18 +1,18 @@
 package com.tailan.confeitaria.web.domain;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
-
+import jakarta.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class ItemPedidoPk {
+@Embeddable
+public class ItemPedidoPk implements Serializable {
+
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
     @ManyToOne
-    @JoinColumn(name = "item_id")
+    @JoinColumn(name = "produto_id")
     private Produto produto;
 
     public Pedido getPedido() {
@@ -33,9 +33,11 @@ public class ItemPedidoPk {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        ItemPedidoPk that = (ItemPedidoPk) o;
-        return Objects.equals(pedido, that.pedido) && Objects.equals(produto, that.produto);
+        if (this == o) return true;
+        if (!(o instanceof ItemPedidoPk)) return false;
+        ItemPedidoPk other = (ItemPedidoPk) o;
+        return Objects.equals(pedido, other.pedido) &&
+                Objects.equals(produto, other.produto);
     }
 
     @Override

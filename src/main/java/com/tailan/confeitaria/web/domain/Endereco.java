@@ -2,14 +2,12 @@ package com.tailan.confeitaria.web.domain;
 
 import jakarta.persistence.*;
 
-import java.util.UUID;
-
 @Entity
 @Table(name = "tb_enderecos")
 public class Endereco {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String cep;
     private String logradouro;
     private String complemento;
@@ -19,14 +17,14 @@ public class Endereco {
     private String numero;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "cliente_id")
     private Usuario usuario;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -94,7 +92,7 @@ public class Endereco {
         this.usuario = usuario;
     }
 
-    public Endereco(Integer id, String cep, String logradouro, String complemento, String bairro, String cidade, String estado, String numero, Usuario usuario) {
+    public Endereco(Long id, String cep, String logradouro, String complemento, String bairro, String cidade, String estado, String numero, Usuario usuario) {
         this.id = id;
         this.cep = cep;
         this.logradouro = logradouro;
