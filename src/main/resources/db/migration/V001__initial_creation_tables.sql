@@ -1,75 +1,74 @@
-CREATE TABLE tb_categorias(
+CREATE TABLE tb_categories(
      id BIGSERIAL PRIMARY KEY,
-     nome VARCHAR(50)
+     name VARCHAR(50)
 );
 
-CREATE TABLE tb_produtos
-(
+CREATE TABLE tb_products (
     id           BIGSERIAL PRIMARY KEY,
-    nome         VARCHAR(100) NOT NULL,
-    descricao    VARCHAR(200) NOT NULL,
-    preco        NUMERIC      NOT NULL,
+    name         VARCHAR(100) NOT NULL,
+    description    VARCHAR(200) NOT NULL,
+    price        NUMERIC      NOT NULL,
     img_url      VARCHAR(155) NOT NULL,
-    ativo        BOOLEAN,
-    categoria_id BIGINT       NOT NULL,
+    active        BOOLEAN,
+    category_id BIGINT       NOT NULL,
 
-    CONSTRAINT fk_produto_categoria
-        FOREIGN KEY (categoria_id) REFERENCES tb_categorias (id)
+    CONSTRAINT fk_product_category
+        FOREIGN KEY (category_id) REFERENCES tb_categories (id)
 );
 
-CREATE TABLE tb_usuarios(
-       id BIGSERIAL PRIMARY KEY,
-       nome VARCHAR(177) NOT NULL,
-    email VARCHAR(150) UNIQUE NOT NULL,
-     telefone VARCHAR(156) NOT NULL,
-      password VARCHAR(255) NOT NULL,
-     cpf VARCHAR(20) UNIQUE NOT NULL
-);
-
-CREATE TABLE tb_enderecos(
-      id BIGSERIAL PRIMARY KEY,
-      cep VARCHAR(20) NOT NULL,
-      logradouro VARCHAR(40) NOT NULL,
-       complemento VARCHAR(30) NOT NULL,
-      bairro VARCHAR(30) NOT NULL,
-       cidade VARCHAR(30) NOT NULL,
-     estado VARCHAR(35) NOT NULL,
-     numero VARCHAR(15) NOT NULL,
-     cliente_id BIGINT NOT NULL,
-
-      CONSTRAINT fk_endereco_cliente
-         FOREIGN KEY (cliente_id) REFERENCES tb_usuarios(id)
-);
-
-CREATE TABLE tb_pedidos(
+CREATE TABLE tb_users (
     id BIGSERIAL PRIMARY KEY,
-     momento_pedido TIMESTAMP NOT NULL,
-   cliente_id BIGINT NOT NULL,
-
-    CONSTRAINT fk_pedido_cliente
-     FOREIGN KEY (cliente_id) REFERENCES tb_usuarios(id)
+    name VARCHAR(177) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    phone VARCHAR(156) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    cpf VARCHAR(20) UNIQUE NOT NULL
 );
 
-CREATE TABLE tb_pagamentos(
+CREATE TABLE tb_address(
+    id BIGSERIAL PRIMARY KEY,
+    zip_code VARCHAR(20) NOT NULL,
+    street VARCHAR(40) NOT NULL,
+    complement VARCHAR(30) NOT NULL,
+    neighborhood VARCHAR(30) NOT NULL,
+    city VARCHAR(30) NOT NULL,
+    state VARCHAR(35) NOT NULL,
+    number VARCHAR(15) NOT NULL,
+    client_id BIGINT NOT NULL,
+
+      CONSTRAINT fk_address_client
+         FOREIGN KEY (client_id) REFERENCES tb_users(id)
+);
+
+CREATE TABLE tb_orders(
+    id BIGSERIAL PRIMARY KEY,
+    moment_order TIMESTAMP NOT NULL,
+    client_id BIGINT NOT NULL,
+
+    CONSTRAINT fk_order_client
+     FOREIGN KEY (client_id) REFERENCES tb_users(id)
+);
+
+CREATE TABLE tb_payments(
         id BIGINT PRIMARY KEY,
-        status_pagamento INT NOT NULL,
-        instante_pagamento TIMESTAMP,
+        status_payment INT NOT NULL,
+        instant_payment TIMESTAMP,
 
-        CONSTRAINT fk_pagamento_pedido
-      FOREIGN KEY (id) REFERENCES tb_pedidos (id)
+        CONSTRAINT fk_payment_order
+      FOREIGN KEY (id) REFERENCES tb_orders (id)
 );
 
-CREATE TABLE tb_item_pedidos(
-      pedido_id  BIGINT NOT NULL,
-      produto_id BIGINT NOT NULL,
-      quantidade INT NOT NULL,
-      preco      NUMERIC NOT NULL,
+CREATE TABLE tb_item_orders(
+      order_id  BIGINT NOT NULL,
+      product_id BIGINT NOT NULL,
+      quantity INT NOT NULL,
+      price      NUMERIC NOT NULL,
 
-      PRIMARY KEY (pedido_id, produto_id),
+      PRIMARY KEY (order_id, product_id),
 
-       CONSTRAINT fk_itempedido_pedido
-       FOREIGN KEY (pedido_id) REFERENCES tb_pedidos(id),
+       CONSTRAINT fk_itemorder_order
+       FOREIGN KEY (order_id) REFERENCES tb_orders(id),
 
-       CONSTRAINT fk_itempedido_produto
-           FOREIGN KEY (produto_id) REFERENCES tb_produtos(id)
+       CONSTRAINT fk_itemorder_product
+           FOREIGN KEY (product_id) REFERENCES tb_products(id)
 );
