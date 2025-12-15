@@ -34,14 +34,6 @@ public class Category {
         this.id = id;
     }
 
-    public Set<Product> getProdutos() {
-        return products;
-    }
-
-    public void setProdutos(Set<Product> products) {
-        this.products = products;
-    }
-
     public String getName() {
         return name;
     }
