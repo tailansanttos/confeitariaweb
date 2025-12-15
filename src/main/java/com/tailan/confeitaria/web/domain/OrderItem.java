@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tb_item_orders")
+@Table(name = "tb_order_item") // Confira se no SQL está tb_order_item
 public class OrderItem {
 
     @EmbeddedId
@@ -16,33 +16,35 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public OrderItem(OrderItemPk id, Integer quantity, Double price) {
-        this.id = id;
+    public OrderItem(Order order, Product product, Integer quantity, Double price) {
+        id.setOrder(order);
+        id.setProduct(product);
         this.quantity = quantity;
         this.price = price;
     }
 
-    public OrderItemPk getId() {
-        return id;
+    public OrderItemPk getId() { return id; }
+    public void setId(OrderItemPk id) { this.id = id; }
+    public Integer getQuantity() { return quantity; }
+    public void setQuantity(Integer quantity) { this.quantity = quantity; }
+    public Double getPrice() { return price; }
+    public void setPrice(Double price) { this.price = price; }
+
+
+    @JsonIgnore
+    public Order getOrder() {
+        return id.getOrder();
     }
 
-    public void setId(OrderItemPk id) {
-        this.id = id;
+    public void setOrder(Order order) {
+        id.setOrder(order);
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Product getProduct() {
+        return id.getProduct();
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setProduct(Product product) {
+        id.setProduct(product);
     }
 }

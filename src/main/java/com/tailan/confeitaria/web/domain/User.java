@@ -19,11 +19,11 @@ public class User {
     @Column(unique = true)
     private String cpf;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "client")
     private List<Address> addresses;
 
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "client")
     private List<Order> orders;
 
     public User(List<Order> orders, List<Address> addresses, String cpf, String password, String phone, String email, String name, Long id) {

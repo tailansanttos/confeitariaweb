@@ -20,7 +20,7 @@ public class Product {
     private Boolean active;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id", nullable = false)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     public Product() {

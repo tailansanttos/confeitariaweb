@@ -8,6 +8,7 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "zip_code")
     private String zipCode;
     private String street;
     private String complement;

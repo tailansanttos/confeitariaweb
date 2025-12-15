@@ -23,7 +23,7 @@ public class Order {
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
 
-    @OneToMany(mappedBy = "id.pedido")
+    @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> itens;
 
 

@@ -15,19 +15,19 @@ public class OrderItemPk implements Serializable {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public Order getPedido() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setPedido(Order order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 
-    public Product getProduto() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProduto(Product product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 
