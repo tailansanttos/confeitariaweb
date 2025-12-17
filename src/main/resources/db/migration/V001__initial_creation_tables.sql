@@ -7,6 +7,7 @@ CREATE TABLE tb_products (
     id           BIGSERIAL PRIMARY KEY,
     name         VARCHAR(100) NOT NULL,
     description    VARCHAR(200) NOT NULL,
+    quantity  INT NOT NULL,
     price        NUMERIC      NOT NULL,
     img_url      VARCHAR(155) NOT NULL,
     active        BOOLEAN,
