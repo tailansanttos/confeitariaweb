@@ -14,6 +14,7 @@ public class Product {
     private String name;
     private String description;
     private BigDecimal price;
+    private Integer quantity;
 
     @Column(name = "img_url")
     private String imgUrl;
@@ -84,11 +85,20 @@ public class Product {
         this.category = category;
     }
 
-    public Product(Long id, String name, String description, BigDecimal price, String imgUrl, Boolean active, Category category) {
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Product(Long id, String name, String description, BigDecimal price, Integer quantity, String imgUrl, Boolean active, Category category) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.quantity = quantity;
         this.imgUrl = imgUrl;
         this.active = active;
         this.category = category;
