@@ -19,7 +19,7 @@ public class ExceptionGlobalHandle {
 
     @ExceptionHandler(ResourceThisPresentException.class)
     public ResponseEntity<ErrorResponseDTO> handleResourceThisPresentException(ResourceThisPresentException ex,   HttpServletRequest request) {
-        ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(ex.getMessage(), "Resource is present.", HttpStatus.NO_CONTENT.value(), request.getRequestURI());
-        return new ResponseEntity<>(errorResponseDTO, HttpStatus.NO_CONTENT);
+        ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(ex.getMessage(), "Resource is present.", HttpStatus.CONFLICT.value(), request.getRequestURI());
+        return new ResponseEntity<>(errorResponseDTO, HttpStatus.CONFLICT);
     }
 }
