@@ -25,15 +25,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryResponseDTO findByName(String name) {
-        Category category = categoryRepository.findByName(name).orElseThrow(() ->  new ResourceNotFoundException(name));
-        CategoryResponseDTO response = new CategoryResponseDTO(category.getId(), category.getName(),  category.getProducts());
-        return  response;
+        Category category = getCategory(name);
+        return new CategoryResponseDTO(category.getId(), category.getName(),  category.getProducts());
+
     }
 
     @Override
     public void deleteCategoyByName(String name) {
-        Category category = categoryRepository.findByName(name).orElseThrow(() ->  new ResourceNotFoundException(name));
-        if (category.getProducts().size()  >  0){
+        Category category = getCategory(name);
+        if (!category.getProducts().isEmpty()){
             throw new IllegalArgumentException("This category has a product registered. It cannot be deleted.");
         }
         categoryRepository.delete(category);
@@ -46,7 +46,7 @@ public class CategoryServiceImpl implements CategoryService {
         //Se tiver uma categoria com esse nome, não vai ser possivel criar uma com o mesmo nome.
         Optional<Category> categoryEntity = categoryRepository.findByName(category.name());
         if (categoryEntity.isPresent()) {
-            throw new ResourceThisPresentException(category.name());
+            throw new ResourceThisPresentException("This category already exists");
         }
 
         Category newCategory = new Category();
@@ -58,8 +58,22 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryResponseDTO updateCategory(CategoryDTO category) {
-        CategoryResponseDTO existingCategory = findByName(category.name());
-        return existingCategory;
+    public CategoryResponseDTO updateCategory(Long categoryId, CategoryDTO category) {
+        Category existingCategory = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+        Category checkCategory = getCategory(category.name());
+
+        if (!checkCategory.getId().equals(categoryId)) {
+            throw new ResourceThisPresentException("Name already in use");
+
+        }
+        existingCategory.setName(category.name());
+        Category savedCategory = categoryRepository.save(existingCategory);
+        return new CategoryResponseDTO(savedCategory.getId(), savedCategory.getName(), savedCategory.getProducts());
+
+    }
+
+    @Override
+    public Category getCategory(String name) {
+        return categoryRepository.findByName(name).orElseThrow(() ->  new ResourceNotFoundException("Category not found!"));
     }
 }
