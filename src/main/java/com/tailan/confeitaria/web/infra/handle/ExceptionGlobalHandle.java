@@ -2,7 +2,7 @@ package com.tailan.confeitaria.web.infra.handle;
 
 import com.tailan.confeitaria.web.infra.exception.ResourceNotFoundException;
 import com.tailan.confeitaria.web.infra.exception.ResourceThisPresentException;
-import com.tailan.confeitaria.web.services.dtos.api.ErrorResponseDTO;
+import com.tailan.confeitaria.web.services.dtos.response.ErrorResponseDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

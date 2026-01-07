@@ -1,8 +1,8 @@
 package com.tailan.confeitaria.web.services;
 
 import com.tailan.confeitaria.web.domain.Category;
-import com.tailan.confeitaria.web.services.dtos.category.CategoryDTO;
-import com.tailan.confeitaria.web.services.dtos.category.CategoryResponseDTO;
+import com.tailan.confeitaria.web.services.dtos.request.CategoryDTO;
+import com.tailan.confeitaria.web.services.dtos.response.CategoryResponseDTO;
 
 public interface CategoryService {
     CategoryResponseDTO findByName(String name);

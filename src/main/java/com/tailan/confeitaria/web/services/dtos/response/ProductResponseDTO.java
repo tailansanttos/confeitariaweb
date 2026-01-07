@@ -1,6 +1,4 @@
-package com.tailan.confeitaria.web.services.dtos.product;
-
-import com.tailan.confeitaria.web.domain.Category;
+package com.tailan.confeitaria.web.services.dtos.response;
 
 import java.math.BigDecimal;
 

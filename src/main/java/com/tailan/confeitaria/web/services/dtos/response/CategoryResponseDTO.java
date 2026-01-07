@@ -1,4 +1,4 @@
-package com.tailan.confeitaria.web.services.dtos.category;
+package com.tailan.confeitaria.web.services.dtos.response;
 
 import com.tailan.confeitaria.web.domain.Product;
 

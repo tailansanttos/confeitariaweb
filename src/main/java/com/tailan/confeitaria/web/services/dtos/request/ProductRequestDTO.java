@@ -1,6 +1,5 @@
-package com.tailan.confeitaria.web.services.dtos.product;
+package com.tailan.confeitaria.web.services.dtos.request;
 
-import com.tailan.confeitaria.web.domain.Category;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 

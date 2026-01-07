@@ -2,8 +2,8 @@ package com.tailan.confeitaria.web.utils.mapper;
 
 import com.tailan.confeitaria.web.domain.Category;
 import com.tailan.confeitaria.web.domain.Product;
-import com.tailan.confeitaria.web.services.dtos.product.ProductRequestDTO;
-import com.tailan.confeitaria.web.services.dtos.product.ProductResponseDTO;
+import com.tailan.confeitaria.web.services.dtos.request.ProductRequestDTO;
+import com.tailan.confeitaria.web.services.dtos.response.ProductResponseDTO;
 import org.springframework.stereotype.Component;
 
 @Component
