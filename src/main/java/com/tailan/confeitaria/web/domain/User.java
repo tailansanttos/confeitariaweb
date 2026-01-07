@@ -1,12 +1,17 @@
 package com.tailan.confeitaria.web.domain;
 
+import com.tailan.confeitaria.web.domain.enums.UserRole;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "tb_users")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,43 +31,71 @@ public class User {
     @OneToMany(mappedBy = "client")
     private List<Order> orders;
 
-    public User(List<Order> orders, List<Address> addresses, String cpf, String password, String phone, String email, String name, Long id) {
-        this.orders = orders;
-        this.addresses = addresses;
-        this.cpf = cpf;
-        this.password = password;
-        this.phone = phone;
-        this.email = email;
-        this.name = name;
-        this.id = id;
-    }
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
+    public User(Long id, String name, String email, String phone, String password, String cpf, List<Address> addresses, List<Order> orders, UserRole role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.cpf = cpf;
+        this.addresses = addresses;
+        this.orders = orders;
+        this.role = role;
+    }
 
     public User() {
     }
 
-
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
-
-
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
 
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {
@@ -123,5 +156,13 @@ public class User {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 }
