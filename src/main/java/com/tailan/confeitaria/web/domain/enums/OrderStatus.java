@@ -1,5 +1,7 @@
 package com.tailan.confeitaria.web.domain.enums;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public enum OrderStatus {
     AWAITING_PAYMENT(1),
     PAID(2),
@@ -13,6 +15,7 @@ public enum OrderStatus {
         this.code =  code;
     }
 
+    @JsonIgnore //JSON MOSTRAR VALOR NUMERICO AO INVES DO NOME DO STATUS
     public int getCode() {
         return code;
     }

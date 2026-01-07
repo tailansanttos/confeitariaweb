@@ -1,9 +1,9 @@
 package com.tailan.confeitaria.web.controller;
 
 import com.tailan.confeitaria.web.services.CategoryService;
-import com.tailan.confeitaria.web.services.dtos.api.ApiResponseDTO;
-import com.tailan.confeitaria.web.services.dtos.category.CategoryDTO;
-import com.tailan.confeitaria.web.services.dtos.category.CategoryResponseDTO;
+import com.tailan.confeitaria.web.services.dtos.response.ApiResponseDTO;
+import com.tailan.confeitaria.web.services.dtos.request.CategoryDTO;
+import com.tailan.confeitaria.web.services.dtos.response.CategoryResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

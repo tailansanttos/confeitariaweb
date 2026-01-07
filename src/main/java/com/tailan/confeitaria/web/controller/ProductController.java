@@ -1,9 +1,9 @@
 package com.tailan.confeitaria.web.controller;
 
 import com.tailan.confeitaria.web.services.ProductService;
-import com.tailan.confeitaria.web.services.dtos.api.ApiResponseDTO;
-import com.tailan.confeitaria.web.services.dtos.product.ProductRequestDTO;
-import com.tailan.confeitaria.web.services.dtos.product.ProductResponseDTO;
+import com.tailan.confeitaria.web.services.dtos.response.ApiResponseDTO;
+import com.tailan.confeitaria.web.services.dtos.request.ProductRequestDTO;
+import com.tailan.confeitaria.web.services.dtos.response.ProductResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;

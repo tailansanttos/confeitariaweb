@@ -6,8 +6,8 @@ import com.tailan.confeitaria.web.infra.exception.ResourceNotFoundException;
 import com.tailan.confeitaria.web.infra.exception.ResourceThisPresentException;
 import com.tailan.confeitaria.web.repository.CategoryRepository;
 import com.tailan.confeitaria.web.services.CategoryService;
-import com.tailan.confeitaria.web.services.dtos.category.CategoryDTO;
-import com.tailan.confeitaria.web.services.dtos.category.CategoryResponseDTO;
+import com.tailan.confeitaria.web.services.dtos.request.CategoryDTO;
+import com.tailan.confeitaria.web.services.dtos.response.CategoryResponseDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;

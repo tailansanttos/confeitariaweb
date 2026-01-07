@@ -1,10 +1,8 @@
 package com.tailan.confeitaria.web.services;
 
-import com.tailan.confeitaria.web.services.dtos.category.CategoryResponseDTO;
-import com.tailan.confeitaria.web.services.dtos.product.ProductRequestDTO;
-import com.tailan.confeitaria.web.services.dtos.product.ProductResponseDTO;
+import com.tailan.confeitaria.web.services.dtos.request.ProductRequestDTO;
+import com.tailan.confeitaria.web.services.dtos.response.ProductResponseDTO;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
     ProductResponseDTO findByName(String name);
