@@ -2,6 +2,7 @@ package com.tailan.confeitaria.web.services.impl;
 
 import com.tailan.confeitaria.web.domain.User;
 import com.tailan.confeitaria.web.domain.enums.UserRole;
+import com.tailan.confeitaria.web.infra.exception.ResourceNotFoundException;
 import com.tailan.confeitaria.web.infra.exception.ResourceThisPresentException;
 import com.tailan.confeitaria.web.repository.UserRepository;
 import com.tailan.confeitaria.web.security.TokenService;
@@ -71,4 +72,13 @@ public class AuthServiceImpl implements AuthService {
         }
 
     }
+
+    @Override
+    public User getUser(String email) {
+        User user = (User) userRepository.findByEmail(email);
+        if (user == null) {
+            throw new ResourceNotFoundException("User with this email does not exists!");
+        }
+        return user;
+}
 }
