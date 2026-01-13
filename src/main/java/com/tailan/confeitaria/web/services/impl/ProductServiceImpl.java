@@ -111,6 +111,19 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.toResponseDTO((updateProduct));
     }
 
+    @Override
+    public Product getProductById(Long productId) {
+        return productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+    }
+
+    @Override
+    public Boolean productDisponible(Product product,  Integer quantity) {
+        if (product.getQuantity().compareTo(quantity) < 0) {
+            return false;
+        }
+        return true;
+    }
+
     private Category getCategoryByName(String name) {
         Category category = categoryService.getCategory(name);
         return  category;
