@@ -3,6 +3,8 @@ package com.tailan.confeitaria.web.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "tb_order_item") // Confira se no SQL está tb_order_item
 public class OrderItem {
@@ -46,5 +48,9 @@ public class OrderItem {
 
     public void setProduct(Product product) {
         id.setProduct(product);
+    }
+
+    public BigDecimal getSubTotal() {
+        return BigDecimal.valueOf(price).multiply(BigDecimal.valueOf(quantity));
     }
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tailan.confeitaria.web.domain.enums.OrderStatus;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Set;
 
@@ -45,5 +46,52 @@ public class Order {
         }
     }
 
-    // Getters e Setters dos outros campos...
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Instant getMomentOrder() {
+        return momentOrder;
+    }
+
+    public void setMomentOrder(Instant momentOrder) {
+        this.momentOrder = momentOrder;
+    }
+
+    public User getClient() {
+        return client;
+    }
+
+    public void setClient(User client) {
+        this.client = client;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    public Set<OrderItem> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<OrderItem> itens) {
+        this.itens = itens;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public BigDecimal getTotal() {
+        return itens.stream().map(OrderItem::getSubTotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 }
