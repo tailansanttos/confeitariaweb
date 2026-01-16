@@ -118,12 +118,24 @@ public class CartServiceImpl implements CartService {
         return product;
     }
 
-    private Cart getCartToUser(String userEmail) {
+    @Override
+    public Cart getCartToUser(String userEmail) {
         Cart cart = cartRepository.findCartByUser_Email(userEmail);
         if (cart == null) {
             throw new ResourceNotFoundException("Cart not found.");
         }
         return cart;
+    }
+
+    @Override
+    public void clearCart(String userEmail) {
+        Cart cart = getCartToUser(userEmail);
+        if (cart.getItems().isEmpty()) {
+            throw new ResourceNotFoundException("Cart items not found.");
+        }
+        cart.getItems().clear();
+        cartRepository.save(cart);
+
     }
 
     CartItem savedCartItem(CartItemRequest cartItem, Cart cart) {
