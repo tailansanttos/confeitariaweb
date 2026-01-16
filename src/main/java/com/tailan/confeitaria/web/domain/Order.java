@@ -28,11 +28,21 @@ public class Order {
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> itens;
 
-    // 1. Mantenha o campo como Integer para o JPA
+
     @Column(name = "status")
     private Integer status;
 
     public Order() {}
+
+
+    public Order(Long id, Instant momentOrder, User client, Payment payment, Set<OrderItem> itens, Integer status) {
+        this.id = id;
+        this.momentOrder = momentOrder;
+        this.client = client;
+        this.payment = payment;
+        this.itens = itens;
+        this.status = status;
+    }
 
     @JsonProperty("status")
     public OrderStatus getStatus() {
@@ -41,9 +51,7 @@ public class Order {
 
     @JsonProperty("status")
     public void setStatus(OrderStatus orderStatus) {
-        if (orderStatus != null) {
-            this.status = orderStatus.getCode();
-        }
+        this.status = orderStatus.getCode();
     }
 
     public Long getId() {
