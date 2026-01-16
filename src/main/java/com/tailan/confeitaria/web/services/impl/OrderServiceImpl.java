@@ -8,10 +8,7 @@ import com.tailan.confeitaria.web.domain.enums.OrderStatus;
 import com.tailan.confeitaria.web.infra.exception.ResourceNotFoundException;
 import com.tailan.confeitaria.web.repository.OrderItemRepository;
 import com.tailan.confeitaria.web.repository.OrderRepository;
-import com.tailan.confeitaria.web.services.CartService;
-import com.tailan.confeitaria.web.services.OrderService;
-import com.tailan.confeitaria.web.services.PaymentService;
-import com.tailan.confeitaria.web.services.ProductService;
+import com.tailan.confeitaria.web.services.*;
 import com.tailan.confeitaria.web.services.dtos.response.OrderResponseDTO;
 import com.tailan.confeitaria.web.services.dtos.response.OrdersClientDTO;
 import com.tailan.confeitaria.web.utils.mapper.OrderMapper;
@@ -34,14 +31,16 @@ public class OrderServiceImpl implements OrderService {
     private final OrderItemRepository orderItemRepository;
     private final OrderMapper orderMapper;
     private final PaymentService paymentService;
+    private final EmailService emailService;
 
-    public OrderServiceImpl(ProductService productService, OrderRepository orderRepository, CartService cartService, OrderItemRepository orderItemRepository, OrderMapper orderMapper, PaymentService paymentService) {
+    public OrderServiceImpl(ProductService productService, OrderRepository orderRepository, CartService cartService, OrderItemRepository orderItemRepository, OrderMapper orderMapper, PaymentService paymentService, EmailService emailService) {
         this.productService = productService;
         this.orderRepository = orderRepository;
         this.cartService = cartService;
         this.orderItemRepository = orderItemRepository;
         this.orderMapper = orderMapper;
         this.paymentService = paymentService;
+        this.emailService = emailService;
     }
 
     @Transactional
@@ -70,6 +69,7 @@ public class OrderServiceImpl implements OrderService {
 
         cartService.clearCart(userEmail);
 
+        emailService.sendOrderConfirmationEmail(savedOrder);
         return orderMapper.toOrderResponseDTO(savedOrder, orderItems);
     }
 
