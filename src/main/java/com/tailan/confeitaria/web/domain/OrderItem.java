@@ -13,12 +13,12 @@ public class OrderItem {
     private OrderItemPk id = new OrderItemPk();
 
     private Integer quantity;
-    private Double price;
+    private BigDecimal price;
 
     public OrderItem() {
     }
 
-    public OrderItem(Order order, Product product, Integer quantity, Double price) {
+    public OrderItem(Order order, Product product, Integer quantity, BigDecimal price) {
         id.setOrder(order);
         id.setProduct(product);
         this.quantity = quantity;
@@ -29,8 +29,8 @@ public class OrderItem {
     public void setId(OrderItemPk id) { this.id = id; }
     public Integer getQuantity() { return quantity; }
     public void setQuantity(Integer quantity) { this.quantity = quantity; }
-    public Double getPrice() { return price; }
-    public void setPrice(Double price) { this.price = price; }
+    public BigDecimal getPrice() { return price; }
+    public void setPrice(BigDecimal price) { this.price = price; }
 
 
     @JsonIgnore
@@ -51,6 +51,6 @@ public class OrderItem {
     }
 
     public BigDecimal getSubTotal() {
-        return BigDecimal.valueOf(price).multiply(BigDecimal.valueOf(quantity));
+        return price.multiply(BigDecimal.valueOf(quantity));
     }
 }
