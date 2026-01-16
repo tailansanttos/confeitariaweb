@@ -124,6 +124,22 @@ public class ProductServiceImpl implements ProductService {
         return true;
     }
 
+    @Override
+    public void reduceStock(Long productId, Integer quantity) {
+        Product product = getProductById(productId);
+        product.setQuantity(product.getQuantity() - quantity);
+
+        productRepository.save(product);
+    }
+
+    @Override
+    public void updateStock(Long productId, Integer quantity) {
+        Product product = getProductById(productId);
+        product.setQuantity(product.getQuantity() + quantity);
+
+        productRepository.save(product);
+    }
+
     private Category getCategoryByName(String name) {
         Category category = categoryService.getCategory(name);
         return  category;

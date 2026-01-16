@@ -20,5 +20,8 @@ public interface ProductService {
 
     Boolean productDisponible(Product product, Integer quantity);
 
+    void reduceStock(Long productId, Integer quantity);
+    void updateStock(Long productId, Integer quantity);
+
 
 }
