@@ -5,6 +5,8 @@ import com.tailan.confeitaria.web.services.dtos.request.UserLoginDTO;
 import com.tailan.confeitaria.web.services.dtos.request.UserRegisterDTO;
 import com.tailan.confeitaria.web.services.dtos.response.ApiResponseDTO;
 import com.tailan.confeitaria.web.services.dtos.response.LoginResponseDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Auth")
 public class AuthController {
     private final AuthService authService;
 
@@ -23,6 +26,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @Operation(summary = "User register")
     public ResponseEntity<ApiResponseDTO> registerUser(@RequestBody @Valid UserRegisterDTO userRegisterDTO){
         authService.registerUser(userRegisterDTO);
         ApiResponseDTO responseDTO = new ApiResponseDTO(null, HttpStatus.CREATED.value());
@@ -31,6 +35,7 @@ public class AuthController {
 
 
     @PostMapping("/login")
+    @Operation(summary = "User login")
     public ResponseEntity<ApiResponseDTO>loginUser(@RequestBody @Valid UserLoginDTO userLoginDTO){
         LoginResponseDTO loginResponseDTO = authService.login(userLoginDTO);
         ApiResponseDTO responseDTO = new ApiResponseDTO(loginResponseDTO, HttpStatus.OK.value());

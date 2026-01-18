@@ -32,6 +32,9 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/api/products").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/categories").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/products/").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated() //Define as rotas publicas e que todas as outras o usuario precisa está autenticado.
                 ).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) //Adiciona o filtro antes do filtro padrão
                 .build();

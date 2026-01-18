@@ -4,6 +4,7 @@ import com.tailan.confeitaria.web.services.ProductService;
 import com.tailan.confeitaria.web.services.dtos.response.ApiResponseDTO;
 import com.tailan.confeitaria.web.services.dtos.request.ProductRequestDTO;
 import com.tailan.confeitaria.web.services.dtos.response.ProductResponseDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/products")
+@SecurityRequirement(name = "Bearer Authentication")
+
 public class ProductController {
     private final ProductService productService;
 
