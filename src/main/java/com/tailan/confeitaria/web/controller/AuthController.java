@@ -27,7 +27,7 @@ public class AuthController {
 
     @PostMapping("/register")
     @Operation(summary = "User register")
-    public ResponseEntity<ApiResponseDTO> registerUser(@RequestBody @Valid UserRegisterDTO userRegisterDTO){
+    public ResponseEntity<ApiResponseDTO> registerUser(@RequestBody @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Campos para usuario se registrar.") @Valid UserRegisterDTO userRegisterDTO){
         authService.registerUser(userRegisterDTO);
         ApiResponseDTO responseDTO = new ApiResponseDTO(null, HttpStatus.CREATED.value());
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);

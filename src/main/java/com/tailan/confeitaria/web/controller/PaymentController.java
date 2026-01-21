@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/payments")
 @SecurityRequirement(name = "Bearer Authentication")
-@Tag(name = "Product")
+@Tag(name = "Payments")
 public class PaymentController {
+
     private final PaymentService paymentService;
     public PaymentController(PaymentService paymentService) {
         this.paymentService = paymentService;
@@ -26,10 +27,11 @@ public class PaymentController {
 
     @Operation(description = "Realizar pagamento do pedido")
     @ApiResponse(responseCode = "200", description = "Pagamento realizado com sucesso." )
+    @ApiResponse(responseCode = "404", description = "Pedido com esse ID não encontrado.")
     @PostMapping("/{orderId}")
     public ResponseEntity<ApiResponseDTO> makePayment(@PathVariable("orderId") Long orderId, Authentication authentication) {
-        String username = authentication.name();
-        paymentService.makePayment(orderId, username);
+//        String username = authentication.name();
+        paymentService.makePayment(orderId);
         ApiResponseDTO apiResponse = new ApiResponseDTO(null, HttpStatus.ACCEPTED.value());
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
