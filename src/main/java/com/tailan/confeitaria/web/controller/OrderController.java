@@ -4,6 +4,9 @@ import com.tailan.confeitaria.web.services.OrderService;
 import com.tailan.confeitaria.web.services.dtos.response.ApiResponseDTO;
 import com.tailan.confeitaria.web.services.dtos.response.OrderResponseDTO;
 import com.tailan.confeitaria.web.services.dtos.response.OrdersClientDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.juli.logging.Log;
@@ -29,6 +32,9 @@ public class OrderController {
     }
 
     @PostMapping
+    @Operation(description = "Deve finalizar o pedido, e aguardar pagamento.")
+    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Cart not found!"), @ApiResponse(responseCode = "201", description = "Pedido finalizado com sucesso.")})
+
     public ResponseEntity<ApiResponseDTO> comletePurchase(Authentication authentication){
         OrderResponseDTO responseDTO = orderService.completePurchase(authentication.getName());
         ApiResponseDTO apiResponseDTO = new ApiResponseDTO(responseDTO, HttpStatus.CREATED.value());
@@ -37,7 +43,8 @@ public class OrderController {
         return ResponseEntity.created(uri).body(apiResponseDTO);
     }
 
-
+    @Operation(description = "Deve retornar todos pedidos realizados pelo cliente.")
+    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Orders  not found!"), @ApiResponse(responseCode = "200", description = "Pedidos retornados.")})
     @GetMapping
     public ResponseEntity<ApiResponseDTO> getOrdersByClient(Authentication authentication,
                                                             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
@@ -49,6 +56,8 @@ public class OrderController {
         return ResponseEntity.ok(apiResponseDTO);
     }
 
+    @Operation(description = "Deve retornar o pedido do cliente pelo ID.")
+    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Order not found!"), @ApiResponse(responseCode = "200", description = "Pedido encontrado.")})
     @GetMapping("/{orderId}")
     public ResponseEntity<ApiResponseDTO> getOrderById(@PathVariable("orderId") Long orderId, Authentication authentication){
         OrderResponseDTO orderResponseDTO = orderService.getOrderById(authentication.getName(), orderId);
@@ -56,6 +65,9 @@ public class OrderController {
         return ResponseEntity.ok(apiResponseDTO);
     }
 
+
+    @Operation(description = "Deve encerrar o pedido.")
+    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Order  not found!"), @ApiResponse(responseCode = "200", description = "Pedido cancelado com sucesso.")})
     @DeleteMapping("/{orderId}")
     public ResponseEntity<ApiResponseDTO> deleteOrderById(@PathVariable("orderId") Long orderId, Authentication authentication){
         orderService.cancelOrder(authentication.getName(), orderId);

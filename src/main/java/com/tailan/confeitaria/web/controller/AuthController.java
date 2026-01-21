@@ -36,7 +36,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @Operation(summary = "User login")
-    public ResponseEntity<ApiResponseDTO>loginUser(@RequestBody @Valid UserLoginDTO userLoginDTO){
+    public ResponseEntity<ApiResponseDTO>loginUser(@RequestBody @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Campos para realizar login.") @Valid UserLoginDTO userLoginDTO){
         LoginResponseDTO loginResponseDTO = authService.login(userLoginDTO);
         ApiResponseDTO responseDTO = new ApiResponseDTO(loginResponseDTO, HttpStatus.OK.value());
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);

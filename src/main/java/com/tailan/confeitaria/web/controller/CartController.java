@@ -5,6 +5,9 @@ import com.tailan.confeitaria.web.services.CartService;
 import com.tailan.confeitaria.web.services.dtos.request.CartItemRequest;
 import com.tailan.confeitaria.web.services.dtos.response.ApiResponseDTO;
 import com.tailan.confeitaria.web.services.dtos.response.CartResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -30,6 +33,8 @@ public class CartController {
     }
 
 
+    @Operation(description = "Deve adicionar item ao carrinho do usuário.")
+    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Product not found!"), @ApiResponse(responseCode = "201", description = "Item adicionado ao carrinho.")})
     @PostMapping
     public ResponseEntity<ApiResponseDTO> addItemToCart(Authentication authentication, @RequestBody @Valid CartItemRequest cartItem) {
         String username = authentication.getName();
@@ -41,7 +46,9 @@ public class CartController {
         return ResponseEntity.created(uri).body(response);
     }
 
-    @PutMapping()
+    @Operation(description = "Deve atualizar a quantidade de um item no carrinho do usuário.")
+    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Product not found!"), @ApiResponse(responseCode = "200", description = "Item adicionado ao carrinho.")})
+    @PutMapping
     public ResponseEntity<ApiResponseDTO> updateItemQuantity(Authentication authentication, @RequestBody @Valid CartItemRequest cartItem) {
        String username = authentication.getName();
         cartService.updateItemQuantity(username, cartItem);
@@ -50,6 +57,8 @@ public class CartController {
     }
 
     @DeleteMapping
+    @Operation(description = "Deve remover um item do carrinho do usuário.")
+    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Product not found!"), @ApiResponse(responseCode = "204", description = "Item removido do carrinho.")}) @PutMapping()
     public ResponseEntity<ApiResponseDTO> removeItemFromCart(Authentication authentication, @RequestBody @Valid CartItemRequest cartItem) {
         String username = authentication.getName();
         cartService.removeItemFromCart(username, cartItem);
@@ -58,6 +67,9 @@ public class CartController {
     }
 
     @GetMapping
+
+    @Operation(description = "Deve retornar detalhes do carrinho do usuario.")
+    @ApiResponses(value = {@ApiResponse(responseCode = "404", description = "Cart not found!"), @ApiResponse(responseCode = "200", description = "Carrinho retornado.")})
     public ResponseEntity<ApiResponseDTO> getCartDetails(Authentication authentication) {
 
         String username = authentication.getName();
