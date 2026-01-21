@@ -41,7 +41,7 @@ public class SchedulerConfig {
         List<Order> orderList = orderRepository.findAllByStatusAndMomentOrderBefore(OrderStatus.AWAITING_PAYMENT.getCode(), instantLimit);
         for (Order order : orderList) {
             orderService.executeCancellationInternal(order);
-            log.info("Cancellando order {}", order.getId());
+            log.info("Cancelando order {}", order.getId());
         }
     }
 }

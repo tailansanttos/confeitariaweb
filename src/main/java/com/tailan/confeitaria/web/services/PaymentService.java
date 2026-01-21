@@ -4,7 +4,7 @@ import com.tailan.confeitaria.web.domain.Order;
 import com.tailan.confeitaria.web.domain.Payment;
 
 public interface PaymentService {
-    void makePayment(Long orderId, String userEmail);
+    void makePayment(Long orderId);
 
     Payment createPayment(Order order);
 }

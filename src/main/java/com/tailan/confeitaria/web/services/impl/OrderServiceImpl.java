@@ -64,8 +64,8 @@ public class OrderServiceImpl implements OrderService {
 
         savedOrder.setItens(orderItems);
         Payment payment = paymentService.createPayment(savedOrder);
-        order.setPayment(payment);
-        orderRepository.save(order);
+        savedOrder.setPayment(payment);
+        orderRepository.save(savedOrder);
 
 
         cartService.clearCart(userEmail);

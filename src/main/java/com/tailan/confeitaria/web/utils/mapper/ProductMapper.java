@@ -13,7 +13,7 @@ public class ProductMapper {
                 product.getName(),
                 product.getDescription(),
                 product.getPrice(),
-                product.getImgUrl(), product.getActive(),product.getCategory().getName());
+                product.getImgUrl(), product.getActive(),product.getCategory().getName(), product.getQuantity());
     }
 
     public Product toEntity(ProductRequestDTO requestDTO, Category category) {
