@@ -16,16 +16,16 @@ import java.util.stream.Collectors;
 public class CartMapper {
     public List<CartItem> toCartItems(CartItemRequest cartItemRequest, User user, Product product, Cart cart) {
         List<CartItem> cartItems = cart.getItems().stream()
-                .map(itemDto -> toCartItem(user,product,cartItemRequest.quantity())).collect(Collectors.toList());
+                .map(itemDto -> toCartItem(product,cartItemRequest.quantity(), cart)).collect(Collectors.toList());
         return cartItems;
 
     }
 
 
 
-    public CartItem toCartItem(User user, Product product, Integer quantity) {
+    public CartItem toCartItem(Product product, Integer quantity, Cart cart) {
         CartItem cartItem = new CartItem();
-        cartItem.setUser(user);
+        cartItem.setCart(cart);
         cartItem.setQuantity(quantity);
         cartItem.setProduct(product);
         return cartItem;

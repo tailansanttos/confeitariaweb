@@ -55,6 +55,7 @@ public class Cart {
             cartItem.setQuantity(cartItem.getQuantity() + newItem.getQuantity());
         }
         this.items.add(newItem);
+        newItem.setCart(this);
     }
 
     public void removeItem(CartItem newItem){

@@ -13,6 +13,7 @@ import com.tailan.confeitaria.web.services.dtos.response.OrderResponseDTO;
 import com.tailan.confeitaria.web.services.dtos.response.OrdersClientDTO;
 import com.tailan.confeitaria.web.utils.mapper.OrderMapper;
 import jakarta.transaction.Transactional;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
     private final PaymentService paymentService;
     private final EmailService emailService;
 
-    public OrderServiceImpl(ProductService productService, OrderRepository orderRepository, CartService cartService, OrderItemRepository orderItemRepository, OrderMapper orderMapper, PaymentService paymentService, EmailService emailService) {
+    public OrderServiceImpl(ProductService productService, OrderRepository orderRepository, CartService cartService, OrderItemRepository orderItemRepository, OrderMapper orderMapper, @Lazy PaymentService paymentService, EmailService emailService) {
         this.productService = productService;
         this.orderRepository = orderRepository;
         this.cartService = cartService;

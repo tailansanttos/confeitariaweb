@@ -4,6 +4,8 @@ import com.tailan.confeitaria.web.services.OrderService;
 import com.tailan.confeitaria.web.services.dtos.response.ApiResponseDTO;
 import com.tailan.confeitaria.web.services.dtos.response.OrderResponseDTO;
 import com.tailan.confeitaria.web.services.dtos.response.OrdersClientDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.juli.logging.Log;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,9 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("api/orders")
+@SecurityRequirement(name = "Bearer Authentication")
+@Tag(name = "Order")
+
 public class OrderController {
     private final OrderService orderService;
 

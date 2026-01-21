@@ -19,7 +19,7 @@ public class Payment {
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "id")
     private Order order;
 
     public Payment() {

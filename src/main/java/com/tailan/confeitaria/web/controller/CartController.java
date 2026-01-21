@@ -5,6 +5,8 @@ import com.tailan.confeitaria.web.services.CartService;
 import com.tailan.confeitaria.web.services.dtos.request.CartItemRequest;
 import com.tailan.confeitaria.web.services.dtos.response.ApiResponseDTO;
 import com.tailan.confeitaria.web.services.dtos.response.CartResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,9 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api/carts")
+@SecurityRequirement(name = "Bearer Authentication")
+@Tag(name = "Cart")
+
 public class CartController {
     private final CartService cartService;
 

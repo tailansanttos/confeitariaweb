@@ -47,6 +47,7 @@ public class CartServiceImpl implements CartService {
         newItem.setProduct(product);
         newItem.setQuantity(cartItem.quantity());
 
+        newItem.setCart(cart);
         cart.addItem(newItem);
 
         Cart savedCart = cartRepository.save(cart);
@@ -142,7 +143,7 @@ public class CartServiceImpl implements CartService {
         CartItem cartItemToReturn = new CartItem();
         Product product = productService.getProductById(cartItem.productId());
         User user = authService.getUser(cart.getUser().getEmail());
-        cartItemToReturn.setUser(user);
+        cartItemToReturn.setCart(cart);
         cartItemToReturn.setProduct(product);
         cartItemToReturn.setQuantity(cartItem.quantity());
         return cartItemToReturn;

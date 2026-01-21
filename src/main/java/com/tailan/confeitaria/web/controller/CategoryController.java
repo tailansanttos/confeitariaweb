@@ -4,6 +4,8 @@ import com.tailan.confeitaria.web.services.CategoryService;
 import com.tailan.confeitaria.web.services.dtos.response.ApiResponseDTO;
 import com.tailan.confeitaria.web.services.dtos.request.CategoryDTO;
 import com.tailan.confeitaria.web.services.dtos.response.CategoryResponseDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/categories")
+@SecurityRequirement(name = "Bearer Authentication")
+@Tag(name = "Category")
+
 public class CategoryController {
     private final CategoryService categoryService;
 
