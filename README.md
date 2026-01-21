@@ -48,3 +48,4 @@ O projeto segue uma arquitetura em camadas bem definida para garantir desacoplam
 
 A API é totalmente documentada com **Swagger UI**.
 Após rodar a aplicação, acesse:
+http://localhost:{{PORT_NUMBER}}/swagger-ui.html
