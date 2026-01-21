@@ -1,2 +1,0 @@
-ALTER TABLE  tb_users
-ADD COLUMN  role VARCHAR(50);

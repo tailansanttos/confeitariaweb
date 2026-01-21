@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "tb_order_item") // Confira se no SQL está tb_order_item
+@Table(name = "tb_item_orders") // Confira se no SQL está tb_order_item
 public class OrderItem {
 
     @EmbeddedId

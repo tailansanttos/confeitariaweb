@@ -23,7 +23,8 @@ CREATE TABLE tb_users (
     email VARCHAR(150) UNIQUE NOT NULL,
     phone VARCHAR(156) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    cpf VARCHAR(20) UNIQUE NOT NULL
+    cpf VARCHAR(20) UNIQUE NOT NULL,
+    role VARCHAR(50)
 );
 
 CREATE TABLE tb_address(
@@ -44,6 +45,7 @@ CREATE TABLE tb_address(
 CREATE TABLE tb_orders(
     id BIGSERIAL PRIMARY KEY,
     moment_order TIMESTAMP NOT NULL,
+    status INTEGER,
     client_id BIGINT NOT NULL,
 
     CONSTRAINT fk_order_client
@@ -72,4 +74,19 @@ CREATE TABLE tb_item_orders(
 
        CONSTRAINT fk_itemorder_product
            FOREIGN KEY (product_id) REFERENCES tb_products(id)
+);
+
+CREATE TABLE tb_carts (
+    id BIGSERIAL PRIMARY KEY ,
+    user_id BIGINT NOT NULL  UNIQUE ,
+    CONSTRAINT fk_cart_user FOREIGN KEY (user_id) REFERENCES tb_users(id)
+);
+
+CREATE TABLE tb_cart_items(
+    id BIGSERIAL PRIMARY KEY,
+    quantity INTEGER NOT NULL,
+    cart_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    CONSTRAINT fk_cart_items_cart FOREIGN KEY (cart_id) REFERENCES tb_carts(id) ON DELETE CASCADE ,
+    CONSTRAINT fk_cart_items_product FOREIGN KEY (product_id) REFERENCES  tb_products(id)
 );

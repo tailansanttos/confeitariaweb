@@ -4,7 +4,10 @@ import com.tailan.confeitaria.web.services.ProductService;
 import com.tailan.confeitaria.web.services.dtos.response.ApiResponseDTO;
 import com.tailan.confeitaria.web.services.dtos.request.ProductRequestDTO;
 import com.tailan.confeitaria.web.services.dtos.response.ProductResponseDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -14,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/products")
 @SecurityRequirement(name = "Bearer Authentication")
-
+@Tag(name = "Product")
 public class ProductController {
     private final ProductService productService;
 
@@ -22,6 +25,9 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @Operation(description = "Deve cadastrar um produto.")
+    @ApiResponse(responseCode = "201", description = "Produto adicionado com sucesso.")
+    @ApiResponse(responseCode = "404", description = "Erro ao cadastrar um produto, essa categoria não existe.")
     @PostMapping
     public ResponseEntity<ApiResponseDTO> createProduct(@RequestBody @Valid ProductRequestDTO productRequestDTO) {
         ProductResponseDTO responseDTO = productService.createProduct(productRequestDTO);
@@ -29,6 +35,8 @@ public class ProductController {
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.CREATED);
     }
 
+    @Operation(description = "Deve retornar os produtos paginados")
+    @ApiResponse(responseCode = "200", description = "Produtos retornados com sucesso.")
     @GetMapping
     public ResponseEntity<ApiResponseDTO> findAllProducts(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
                                                           @RequestParam(value = "size", defaultValue = "10", required = false)int size,
@@ -40,20 +48,24 @@ public class ProductController {
         ApiResponseDTO apiResponseDTO = new  ApiResponseDTO(productResponseDTOS, HttpStatus.OK.value());
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
     }
-
+    @Operation(description = "Deve buscar produto pelo nome")
+    @ApiResponse(responseCode = "200", description = "Produtos retornado com sucesso.")
     @GetMapping("/{product}")
     public ResponseEntity<ApiResponseDTO> findProduct(@PathVariable String product) {
         ProductResponseDTO productResponseDTO = productService.findByName(product);
         ApiResponseDTO apiResponseDTO = new  ApiResponseDTO(productResponseDTO, HttpStatus.OK.value());
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
     }
-
+    @Operation(description = "Desativa um produto")
+    @ApiResponse(responseCode = "200", description = "Produtos desativado com sucesso")
     @DeleteMapping("/{product}")
     public ResponseEntity<Void> desactivateProduct(@PathVariable("product") String product) {
         productService.deactivateProductByName(product);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Operation(description = "Ativa um produto")
+    @ApiResponse(responseCode = "200", description = "Produtos ativado com sucesso")
     @PatchMapping("/{product}")
     public ResponseEntity<Void> activateProduct(@PathVariable("product") String product) {
         productService.activateProductByName(product);

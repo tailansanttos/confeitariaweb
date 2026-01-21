@@ -5,6 +5,7 @@ import com.tailan.confeitaria.web.domain.Order;
 import com.tailan.confeitaria.web.domain.enums.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -13,6 +14,6 @@ public record UserRegisterDTO(@NotBlank(message = "O noome é obrigatório.")Str
                               @NotBlank(message = "O telefone é obrigatório.") String phone,
                               @NotBlank(message = "A senha é obrigatória.")String password,
                               @NotBlank(message = "O cpf é obrigatório.")String cpf,
-                              @NotBlank(message = "O endereço é obrigatório.") List<AddressDTO> addresses,
+                              @NotEmpty(message = "O endereço é obrigatório.") List<AddressDTO> addresses,
                               UserRole role) {
 }
