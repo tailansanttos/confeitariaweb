@@ -25,14 +25,11 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     @Transactional
-    public void makePayment(Long orderId, String userEmail) {
-        Order order = orderService.getOrderByClient(userEmail, orderId);
+    public void makePayment(Long orderId) {
+        Payment payment = paymentRepository.findByOrder_Id(orderId);
 
-        Payment payment = order.getPayment();
 
-        if (order.getStatus().equals(OrderStatus.CANCELED)){
-            throw new IllegalArgumentException("Order canceled.");
-        }
+       Order order = payment.getOrder();
 
         order.setStatus(OrderStatus.PAID);
         payment.setStatusPayment(StatusPayment.PAID_OFF.getCode());
