@@ -1,5 +1,6 @@
 version: '3.8'
 services:
+
   backend-app:
     build: .
     ports:
@@ -13,8 +14,19 @@ services:
      - SPRING_MAIL_PASSWORD=${MAIL_PASSWORD}
 
      - API_SECURITY_TOKEN_SECRET=${API_SECRET}
+
+     - SPRING_DATA_REDIS_HOST=redis-dev
+     - SPRING_DATA_REDIS_PORT=6379
     depends_on:
       - banco
+      - redis-dev
+
+  redis-dev:
+    image: redis:7.4.8-alpine
+    container_name: redis-confeitaria
+    ports:
+      - "6379:6379"
+
   banco:
     image: postgres:15-alpine
     environment:
