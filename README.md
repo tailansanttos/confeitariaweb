@@ -3,6 +3,7 @@
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
 ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 
 ## 📌 Sobre o Projeto
@@ -18,6 +19,7 @@ O diferencial técnico deste projeto é a implementação de um sistema de **Res
 * **Spring Data JPA** (Hibernate)
 * **Spring Security + JWT** (Autenticação e Autorização Stateless)
 * **PostgreSQL** (Banco de Dados Relacional)
+* **Redis** (Banco de Dados em memória, utilizado para cache)
 * **Mockito & JUnit 5** (Testes Unitários)
 * **SpringDoc OpenAPI** (Documentação Swagger)
 * **Maven** (Gerenciamento de dependências)
