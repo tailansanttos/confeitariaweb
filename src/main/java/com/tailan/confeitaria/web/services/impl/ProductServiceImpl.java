@@ -11,6 +11,8 @@ import com.tailan.confeitaria.web.services.ProductService;
 import com.tailan.confeitaria.web.services.dtos.request.ProductRequestDTO;
 import com.tailan.confeitaria.web.services.dtos.response.ProductResponseDTO;
 import com.tailan.confeitaria.web.utils.specifications.ProductSpecifications;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -43,6 +45,7 @@ public class ProductServiceImpl implements ProductService {
         return existingProduct;
     }
 
+    @CacheEvict(value = "produtos", allEntries = true)
     @Override
     public void deactivateProductByName(String name) {
         Product existingProduct = getByName(name);
@@ -57,6 +60,7 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(existingProduct);
     }
 
+    @Cacheable("products")
     @Override
     public Page<ProductResponseDTO> findAll(int page, int size, String sortBy,  String direction, String name, String category) {
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.valueOf(direction), sortBy);
@@ -77,6 +81,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
+    @CacheEvict(value = "products", allEntries = true)
     @Override
     public ProductResponseDTO createProduct(ProductRequestDTO product) {
         Category category = getCategoryByName(product.category());
@@ -92,6 +97,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @CacheEvict(value = "products", allEntries = true)
+
     public ProductResponseDTO updateProduct(Long productId, ProductRequestDTO product) {
         Product existingProduct = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
 

@@ -8,6 +8,12 @@ import com.tailan.confeitaria.web.repository.CategoryRepository;
 import com.tailan.confeitaria.web.services.CategoryService;
 import com.tailan.confeitaria.web.services.dtos.request.CategoryDTO;
 import com.tailan.confeitaria.web.services.dtos.response.CategoryResponseDTO;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -24,6 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Cacheable(value = "category-by-id")
     public CategoryResponseDTO findByName(String name) {
         Category category = getCategory(name);
         return new CategoryResponseDTO(category.getId(), category.getName(),  category.getProducts());
@@ -31,6 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @CacheEvict(value = "categories", allEntries = true)
     public void deleteCategoyByName(String name) {
         Category category = getCategory(name);
         if (!category.getProducts().isEmpty()){
@@ -39,6 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.delete(category);
     }
 
+    @CacheEvict(value = "categories" ,allEntries = true)
     @Override
     public CategoryResponseDTO createCategory(CategoryDTO category) {
         Set<Product> products = new HashSet<>();
@@ -58,6 +67,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @CacheEvict(value = "categories", allEntries = true)
     public CategoryResponseDTO updateCategory(Long categoryId, CategoryDTO category) {
         Category existingCategory = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found"));
         Category checkCategory = getCategory(category.name());
@@ -70,6 +80,16 @@ public class CategoryServiceImpl implements CategoryService {
         Category savedCategory = categoryRepository.save(existingCategory);
         return new CategoryResponseDTO(savedCategory.getId(), savedCategory.getName(), savedCategory.getProducts());
 
+    }
+
+    @Cacheable(value = "categories")
+    @Override
+    public Page<CategoryResponseDTO> getAllCategories(int page, int size) {
+        Pageable pageable1 = PageRequest.of(page, size);
+        Page<Category> categories = categoryRepository.findAll(pageable1);
+
+        Page<CategoryResponseDTO> responseDTOPage = categories.map(category -> new CategoryResponseDTO(category.getId(), category.getName(), category.getProducts()));
+        return responseDTOPage;
     }
 
     @Override
