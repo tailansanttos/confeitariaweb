@@ -35,6 +35,7 @@ O diferencial técnico deste projeto é a implementação de um sistema de **Res
     * Regras de negócio para cancelamento e estorno.
 * ✅ **Automação (Scheduler):** Tarefa agendada que monitora e cancela pedidos não pagos, liberando o estoque.
 * ✅ **Pagamentos:** Simulação de fluxo de pagamento integrado ao pedido.
+* ✅ **Cache:** Cache para melhor performance da aplicação, com TTL para invalidação de cache.
 
 ## 🏗️ Arquitetura
 
